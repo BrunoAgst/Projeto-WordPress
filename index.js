@@ -3,8 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
 
-//conectando ao banco
+//importando as rotas de categoria
+const categoriesController = require("./categories/CategoriesController");
+const articlesController = require("./articles/ArticlesController");
 
+//conectando ao banco
 connection
     .authenticate()
     .then(() => {
@@ -23,6 +26,9 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false})); //aceitando dados de formulario
 app.use(bodyParser.json()); //aceitando json
 
+//link entre a aplicação principal e as rotas de categoria
+app.use("/", categoriesController); //"/" => define o prefixo
+app.use("/", articlesController);
 
 app.get("/", (req, res) => {
     res.render("index");
