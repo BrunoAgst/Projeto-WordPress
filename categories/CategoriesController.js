@@ -24,11 +24,34 @@ router.post("/categories/save", (req, res) => {
     }
 });
 
+//rota para exibir as categorias do banco de dados
 router.get("/admin/categories", (req, res) => {
 
     Category.findAll().then(category => {
         res.render("admin/categories/index", {categories : category}); //informando um JSON para passar as cateforias para a view
     });
+});
+
+//rota para deletar categoria do banco
+router.post("/categories/delete", (req, res) => {
+    var id = req.body.id;
+    if(id != undefined){ //verificando se o id não é nulo
+        if(!isNaN(id)){ //verifica se o id é um numero
+
+            Category.destroy({ //excluindo uma categoria
+                where: {
+                    id: id
+                }
+            }).then(() => {
+                res.redirect("/admin/categories");
+            });
+
+        }else{
+            res.redirect("/admin/categories");
+        }
+    }else{
+        res.redirect("/admin/categories");
+    }
 });
 
 module.exports = router;

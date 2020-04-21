@@ -4,7 +4,9 @@
 <div class="container">
     <hr>
     <h2>Categorias</h2>
-    <hr>
+    <a class="btn btn-success" href="/admin/categories/new">Criar uma nova categoria</a>
+    <br>
+    <br>
     <table class="table table-bordered">
         <thead> <!-- cabeçalho da tabela -->
             <tr> <!-- linha -->
@@ -21,7 +23,13 @@
                     <th><%= category.id %></th>
                     <th><%= category.title %></th>
                     <th><%= category.slug %></th>
-                    <th></th>
+                    <th>
+                        <button class="btn btn-warning">Editar</button>
+                        <form method="POST" action="/categories/delete" style="display: inline;"> <!-- linkando a rota de delete ao botão -->
+                            <input type="hidden" name="id" value="<%= category.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+                    </th>
                 </tr>
             <% }) %>
         </tbody>
