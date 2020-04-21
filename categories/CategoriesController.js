@@ -54,4 +54,27 @@ router.post("/categories/delete", (req, res) => {
     }
 });
 
+//rota para a view de editar o uma categoria
+router.get("/admin/categories/edit/:id", (req, res) => {
+    var id = req.params.id;
+
+    //devido ao bug que qualquer string depois do número no id, o sequelize localiza a categoria vamps verificar se o id é um número
+    if(isNaN(id)){
+        res.redirect("/admin/categories");
+    };
+
+    Category.findByPk(id).then(category => { //método específico para buscar um item pelo ID
+        if(category != undefined){//verificando se não é nulo
+            res.render("admin/categories/edit", {
+                categories : category
+            })
+        } else{
+            res.redirect("/admin/categories");
+        }
+    }).catch(error => {
+        res.redirect("/admin/categories");
+    }); 
+});
+
+
 module.exports = router;
