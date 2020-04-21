@@ -75,6 +75,18 @@ router.get("/admin/categories/edit/:id", (req, res) => {
         res.redirect("/admin/categories");
     }); 
 });
+//rota que faz a alteração da categoria no banco
+router.post("/categories/update", (req, res) => {
+    var id = req.body.id;
+    var title = req.body.title;
 
+    Category.update({title: title, slug: slugify(title)},{ // esse código informa que queremos atualizar uma categoria pelo seu ID
+        where: {
+            id: id
+        }
+    }).then(() => {
+        res.redirect("/admin/categories");
+    });
+});
 
 module.exports = router;
