@@ -18,8 +18,13 @@
             </tr>
         </thead>
         <tbody> <!-- corpo da tabela -->
-            
-          
+            <% articles.forEach(article => { %>
+                <td><%= article.id %></td> <!-- colunas -->
+                <td><%= article.title %></td>
+                <td><%= article.slug %></td>
+                <td><%= article.categoryId %></td>
+                <td>Ações</td>
+            <% }) %>
         </tbody>
     </table>
 </div>
