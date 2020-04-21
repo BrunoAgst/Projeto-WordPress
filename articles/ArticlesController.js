@@ -8,7 +8,7 @@ const slugify = require("slugify");
 
 //definimos todas as de categoria utilizando o recurso router e exportamos com o module.exports
 router.get("/admin/articles", (req, res) => {
-    res.send("ROTA DE ARTIGO")
+    res.render("admin/articles/index");
 });
 
 

@@ -1,0 +1,36 @@
+<%- include ('../../partials/header.ejs') %>
+<body>
+<%- include ('../../partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/new">Criar uma novo artigo</a>
+    <br>
+    <br>
+    <table class="table table-bordered">
+        <thead> <!-- cabeçalho da tabela -->
+            <tr> <!-- linha -->
+                <th>ID</th> <!-- colunas -->
+                <th>Titulo</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody> <!-- corpo da tabela -->
+            
+          
+        </tbody>
+    </table>
+</div>
+</body>
+<%- include ('../../partials/footer.ejs') %>
+<script> //criando uma confirmação antes deletar a categoria
+    function confirmarDelecao(event, form){
+        event.preventDefault(); //impedi que o formulário seja submetido
+        var decision = confirm("Tem certeza que deseja deletar está categoria"); //responsável por pegar a decisão do usuário
+        if(decision){
+            form.submit(); //caso o usuário seja aceite o formulário seria submetido e irá excluir o usuário
+        }
+    }
+</script>
