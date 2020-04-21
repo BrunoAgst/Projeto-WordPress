@@ -17,7 +17,7 @@ router.post("/categories/save", (req, res) => {
            title: title,
            slug: slugify(title) //versão do titulo otimizado para URL
        }).then(() => {
-            res.redirect("/");
+            res.redirect("/admin/categories");
        });
     }else{
         res.redirect("/admin/categories/new");
