@@ -1,6 +1,29 @@
 <%- include ('./partials/header.ejs') %>
+<%- include ('./partials/homeNavbar.ejs') %>
 <body>
-    <h1>Testando as views</h1>
+    <br>
+    <div class="container">
+        <!-- Jumbotron componente do bootstrap -->
+        <div class="jumbotron">
+            <h1 class="display-4">Bem vindo</h1>
+            <p class="lead">Este é um simples blog de tecnologia.</p>
+            <hr class="my-4">
+            <p>Descrição detalhada</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+          </div>
+        <br>
+        <% articles.forEach(article => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-success">Ler Artigo</a>
+                </div>
+            </div>
+            <br>
+        <% }) %>
+    </div>
 
 </body>
 <%- include ('./partials/footer.ejs') %>

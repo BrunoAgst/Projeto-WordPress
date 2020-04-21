@@ -35,7 +35,9 @@ app.use("/", categoriesController); //"/" => define o prefixo
 app.use("/", articlesController);
 
 app.get("/", (req, res) => {
-    res.render("index");
+    Article.findAll().then(article => {
+        res.render("index",{articles : article});
+    });
 });
 
 app.listen(3000, () => {
