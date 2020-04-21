@@ -18,7 +18,8 @@
                     <h2><%= article.title %></h2>
                 </div>
                 <div class="card-body">
-                    <a class="btn btn-success">Ler Artigo</a>
+                    <!-- utilizamos o slug para apontar o botão para o artigo correspondente -->
+                    <a href="/<%= article.slug %>" class="btn btn-success">Ler Artigo</a>
                 </div>
             </div>
             <br>
