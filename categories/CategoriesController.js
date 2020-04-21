@@ -24,4 +24,11 @@ router.post("/categories/save", (req, res) => {
     }
 });
 
+router.get("/admin/categories", (req, res) => {
+
+    Category.findAll().then(category => {
+        res.render("admin/categories/index", {categories : category}); //informando um JSON para passar as cateforias para a view
+    });
+});
+
 module.exports = router;
