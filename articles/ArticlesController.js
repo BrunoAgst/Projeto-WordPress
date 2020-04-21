@@ -38,4 +38,25 @@ router.post("/articles/save", (req, res) => {
     });
 });
 
+router.post("/articles/delete", (req, res) => {
+    var id = req.body.id;
+    if(id != undefined){ //verificando se o id não é nulo
+        if(!isNaN(id)){ //verifica se o id é um numero
+
+            Article.destroy({ //excluindo uma categoria
+                where: {
+                    id: id
+                }
+            }).then(() => {
+                res.redirect("/admin/articles");
+            });
+
+        }else{
+            res.redirect("/admin/articles");
+        }
+    }else{
+        res.redirect("/admin/articles");
+    }
+});
+
 module.exports = router;

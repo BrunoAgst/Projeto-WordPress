@@ -23,7 +23,12 @@
                 <td><%= article.title %></td>
                 <td><%= article.slug %></td>
                 <td><%= article.category.title %></td> <!-- graças ao join consigo exibir o título da categoria -->
-                <td>Ações</td>
+                <td>
+                    <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)"> <!-- linkando a rota de delete ao botão.(this -> signifia que estamos acessando o usuária)-->
+                        <input type="hidden" name="id" value="<%= article.id %>">
+                        <button class="btn btn-danger">Deletar</button>
+                    </form>
+                </td>
             <% }) %>
         </tbody>
     </table>
@@ -33,7 +38,7 @@
 <script> //criando uma confirmação antes deletar a categoria
     function confirmarDelecao(event, form){
         event.preventDefault(); //impedi que o formulário seja submetido
-        var decision = confirm("Tem certeza que deseja deletar está categoria"); //responsável por pegar a decisão do usuário
+        var decision = confirm("Tem certeza que deseja deletar este artigo"); //responsável por pegar a decisão do usuário
         if(decision){
             form.submit(); //caso o usuário seja aceite o formulário seria submetido e irá excluir o usuário
         }
