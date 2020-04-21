@@ -8,7 +8,9 @@ const slugify = require("slugify");
 
 //definimos todas as de categoria utilizando o recurso router e exportamos com o module.exports
 router.get("/admin/articles", (req, res) => {
-    Article.findAll().then(article =>{
+    Article.findAll({
+        include: [{model: Category}] //realizando o join incluindo model category na busca
+    }).then(article =>{
         res.render("admin/articles/index", {articles : article});
     });
 });
