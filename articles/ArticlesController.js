@@ -93,4 +93,41 @@ router.post("/articles/update", (req, res) => {
     });
 })
 
+//sistema de páginação
+router.get("/articles/page/:num",(req, res) => {
+    var page = req.params.num;
+    var offset = 0;
+
+
+    if(isNaN(page) || page == 1){
+        offset = 0;
+    }else{
+        offset = (parseInt(page) - 1) * 4;
+    }
+
+    Article.findAndCountAll({//esse parâmetro retorna todos os artigos e a quantidade total 
+        limit: 4, //limita a quantidade de artigos por páginas
+        offset: offset, //mostrar a partir de um determinado id
+        order: [
+            ['id', 'DESC']
+        ]
+    }).then(article => {
+        var next;
+        if(offset + 4 >= article.count){ //verficando se offset é maior que a quantidade de páaginas
+            next = false;
+        }else{
+            next = true;
+        }
+        var result = {
+            page: parseInt(page),
+            next: next,
+            articles : article
+        }
+
+        Category.findAll().then(category => {
+            res.render("admin/articles/page",{results: result, categories: category})
+        })
+    });
+});
+
 module.exports = router;

@@ -38,7 +38,8 @@ app.get("/", (req, res) => {
     Article.findAll({
         order: [ //ordenando os artigos de forma decrescente
             ['id', 'DESC']
-        ]
+        ],
+        limit: 4
     }).then(article => {
         Category.findAll().then( category => {           
             res.render("index",{articles : article, categories : category});
@@ -75,7 +76,7 @@ app.get("/category/:slug", (req, res) => {
     }).then(category => {
         if(category != undefined){
             Category.findAll().then(category => {
-                res.render("index", {articles: category.article, categories: category}); //passando para a via as categorias e os artigos através das categorias
+                res.render("category", {article: category.article, categories: category}); //passando para a via as categorias e os artigos através das categorias
             });
         }else{
             res.redirect("/");

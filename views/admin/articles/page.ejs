@@ -1,0 +1,34 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/homeNavbar.ejs') %>
+<body>
+    <br>
+    <div class="container">
+        <br>
+        <% results.articles.rows.forEach(article => { %>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="/<%= article.slug %>" class="btn btn-success">Ler Artigo</a>  <!-- utilizamos o slug para apontar o botão para o artigo correspondente -->
+                </div>
+            </div>
+            <br>
+        <% }) %>
+    </div>
+    <div class="row"> 
+        <div class="col col-12">
+            <% if(results.page > 2){ %> <!-- verificando para o anterior não dar erro na página 1 -->
+                <a style="float: left" href="/articles/page/<%= results.page - 1 %>">Anterior</a> <!-- deixando o próxumo a direita e realizando a logica de somar mais um e passar para a próxima página-->
+            
+            <% } else if(results.page == 2){ %>
+                <a style="float: left" href="/">Anterior</a> 
+            <% } %> 
+
+            <% if(results.next){ %> <!-- verificando se a varivel next é verdadeira, pous a mesma informa se terá uma próxima página ou não-->
+                <a style="float: right" href="/articles/page/<%= results.page + 1 %>">Próximo</a> <!-- deixando o próxumo a direita e realizando a logica de somar mais um e passar para a próxima página-->
+            <% } %>
+            </div>
+     </div>
+</body>
+<%- include ('../../partials/footer.ejs') %>
