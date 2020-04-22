@@ -25,6 +25,7 @@
                     <td><%= article.slug %></td>
                     <td><%= article.category.title %></td> <!-- graças ao join consigo exibir o título da categoria -->
                     <td>
+                        <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-warning">Edit</a>
                         <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)"> <!-- linkando a rota de delete ao botão.(this -> signifia que estamos acessando o usuária)-->
                             <input type="hidden" name="id" value="<%= article.id %>">
                             <button class="btn btn-danger">Deletar</button>

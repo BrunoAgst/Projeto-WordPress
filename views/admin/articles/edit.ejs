@@ -1,0 +1,33 @@
+<%- include ('../../partials/header.ejs') %>
+<body>
+<%- include ('../../partials/navbar.ejs') %>
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h2>Edição de artigo</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/articles/update">
+                <input class="form-control" type="text" name="title" placeholder="Novo título da artigo" value="<%= articles.title %>">
+                <br>
+                <input id="article" class="form-control" type="text" name="body" placeholder="Novo texto do artigo" value="<%= articles.body %>"></input>
+                <input type="hidden" name="id" value="<%= articles.id %>"> <!-- pegando o id dessa categoria para passar para o banci-->
+                <br>
+                <button class="btn btn-success">Atualizar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<%- include ('../../partials/footer.ejs') %>
+<script src="/tinymce/tinymce.min.js"></script> <!-- importando o script do tinymce -->
+<script>
+    tinymce.init({ // esse script atrela o tinymce a text area
+        language: "pt_BR", //após baixar o pacote de idiomas no site e inserir na pasta lang do tinymce, basta configurar a linguagem
+        selector: "#article",
+        plugins: [ //adicionando plugins no tinymce
+            "advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons"
+        ]
+    });
+</script>
