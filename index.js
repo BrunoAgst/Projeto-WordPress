@@ -35,8 +35,14 @@ app.use("/", categoriesController); //"/" => define o prefixo
 app.use("/", articlesController);
 
 app.get("/", (req, res) => {
-    Article.findAll().then(article => {
-        res.render("index",{articles : article});
+    Article.findAll({
+        order: [ //ordenando os artigos de forma decrescente
+            ['id', 'DESC']
+        ]
+    }).then(article => {
+        Category.findAll().then( category => {           
+            res.render("index",{articles : article, categories : category});
+        });
     });
 });
 
@@ -48,11 +54,33 @@ app.get("/:slug", (req, res) => {
         }
     }).then(article => {
         if(article != undefined){
-            res.render("article", {articles: article});
-        }else{
+            Category.findAll().then( category => { //chamando o categoria 
+                res.render("article", {articles: article, categories: category});
+        })}
+        else{
             res.redirect("/");
         }  
     }).catch(error => {
+        res.redirect("/");
+    });
+});
+
+app.get("/category/:slug", (req, res) => {
+    var slug = req.params.slug;
+    Category.findOne({
+        where: {
+            slug: slug
+        },
+       include: [{model : Article}] //nessa linha fazemos o join e informamos para buscar toda os artigos dentro da categoria
+    }).then(category => {
+        if(category != undefined){
+            Category.findAll().then(category => {
+                res.render("index", {articles: category.article, categories: category}); //passando para a via as categorias e os artigos através das categorias
+            });
+        }else{
+            res.redirect("/");
+        }
+    }).catch(err => {
         res.redirect("/");
     });
 });

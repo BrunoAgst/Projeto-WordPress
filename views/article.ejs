@@ -8,12 +8,10 @@
                     <%= articles.title %>
                 </div>
                 <div class="card-body">
-                    <%= articles.body %>
+                    <%- articles.body %> <!-- quando utilizamos o - ele converte o conteúdo para html -->
                 </div>
             </div>
             <br>
-       
     </div>
-
 </body>
 <%- include ('./partials/footer.ejs') %>
