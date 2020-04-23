@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
+const session = require('express-session');
 
 //importando as rotas de categoria
 const categoriesController = require("./categories/CategoriesController");
@@ -24,6 +25,14 @@ connection
 
 //carregando a view engine
 app.set('view engine', 'ejs');
+
+//ativando o gerenciamento de sessões
+app.use(session({
+    secret: "wesdrtvyvbuniokikom", //como se fosse uma senha para aumentar das sessões
+    cookie: { //forma que o cookie vai ser armazenado no navegador do usuário, ou seja, esse cookie vai informar para o servidor que esse usuário possui uma sessão nesse servidor
+        maxAge: 3000000, //tempo de expirção, ou seja, quero que esse usuário deslogue automaticamente depois de 3 horas 1 hora e etc
+    }
+}));
 
 //carregando arquivos estaticos
 app.use(express.static('public'));
