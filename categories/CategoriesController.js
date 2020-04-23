@@ -2,15 +2,16 @@ const express = require("express");
 const router = express.Router();
 const Category = require("./Category"); //carregando o model
 const slugify = require("slugify"); //carregando o slugfy
+const adminAuth = require("../middleware/adminAuth");
 
 //definimos todas as de categoria utilizando o recurso router e exportamos com o module.exports
-router.get("/admin/categories/new", (req, res) => {
+router.get("/admin/categories/new", adminAuth, (req, res) => {
     res.render("admin/categories/new");
 });
 
 
 //definindo a rota para salvar no banco
-router.post("/categories/save", (req, res) => {
+router.post("/categories/save", adminAuth, (req, res) => {
     var title = req.body.title;
     if(title != undefined){ //verificando o campo não está undefined
        Category.create({
@@ -25,7 +26,7 @@ router.post("/categories/save", (req, res) => {
 });
 
 //rota para exibir as categorias do banco de dados
-router.get("/admin/categories", (req, res) => {
+router.get("/admin/categories", adminAuth, (req, res) => {
 
     Category.findAll().then(category => {
         res.render("admin/categories/index", {categories : category}); //informando um JSON para passar as cateforias para a view
@@ -33,7 +34,7 @@ router.get("/admin/categories", (req, res) => {
 });
 
 //rota para deletar categoria do banco
-router.post("/categories/delete", (req, res) => {
+router.post("/categories/delete", adminAuth, (req, res) => {
     var id = req.body.id;
     if(id != undefined){ //verificando se o id não é nulo
         if(!isNaN(id)){ //verifica se o id é um numero
@@ -55,7 +56,7 @@ router.post("/categories/delete", (req, res) => {
 });
 
 //rota para a view de editar o uma categoria
-router.get("/admin/categories/edit/:id", (req, res) => {
+router.get("/admin/categories/edit/:id", adminAuth, (req, res) => {
     var id = req.params.id;
 
     //devido ao bug que qualquer string depois do número no id, o sequelize localiza a categoria vamps verificar se o id é um número
@@ -76,7 +77,7 @@ router.get("/admin/categories/edit/:id", (req, res) => {
     }); 
 });
 //rota que faz a alteração da categoria no banco
-router.post("/categories/update", (req, res) => {
+router.post("/categories/update", adminAuth, (req, res) => {
     var id = req.body.id;
     var title = req.body.title;
 
