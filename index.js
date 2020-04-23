@@ -6,10 +6,12 @@ const connection = require('./database/database');
 //importando as rotas de categoria
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
+const userController = require("./user/UserController");
 
 //importando os models
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const User = require("./user/User");
 
 //conectando ao banco
 connection
@@ -33,6 +35,7 @@ app.use(bodyParser.json()); //aceitando json
 //link entre a aplicação principal e as rotas de categoria
 app.use("/", categoriesController); //"/" => define o prefixo
 app.use("/", articlesController);
+app.use("/", userController);
 
 app.get("/", (req, res) => {
     Article.findAll({
